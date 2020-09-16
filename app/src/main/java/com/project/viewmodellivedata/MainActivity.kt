@@ -3,6 +3,7 @@ package com.project.viewmodellivedata
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import kotlinx.android.synthetic.main.activity_main.*
@@ -20,8 +21,14 @@ class MainActivity : AppCompatActivity() {
 
         data = ViewModelProviders.of(this).get(MainActivityDataGenerator::class.java)
         val myRandomNumber = data.getNumber()
-        tvNumber.text = myRandomNumber
-        Log.i(TAG, "Random Number Set")
+
+        myRandomNumber.observe(this, Observer<String> { number ->
+            tvNumber.text = number
+            Log.i(TAG, "Random Number Set")
+        })
+
+        bRandom.setOnClickListener { data.createNumber() }
+
     }
 
     companion object {
