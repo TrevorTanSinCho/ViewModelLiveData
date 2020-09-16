@@ -1,9 +1,10 @@
 package com.project.viewmodellivedata
 
 import android.util.Log
+import androidx.lifecycle.ViewModel
 import java.util.*
 
-class MainActivityDataGenerator {
+class MainActivityDataGenerator : ViewModel() {
     private lateinit var myRandomNumber: String
 
     fun getNumber(): String {
@@ -19,6 +20,11 @@ class MainActivityDataGenerator {
         Log.i(TAG, "Create New Number")
         val random = Random()
         myRandomNumber = "Number: " + (random.nextInt(10 - 1) + 1)
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        Log.i(TAG, "ViewModel Destroyed")
     }
 
     companion object{
